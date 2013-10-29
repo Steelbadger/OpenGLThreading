@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\GLEW">
+      <UniqueIdentifier>{88142337-5999-45e8-8bb7-e69b4fd357cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Maths">
+      <UniqueIdentifier>{bde56fad-bb00-475d-bbec-249dd49f622b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rendering">
+      <UniqueIdentifier>{eb9db8a4-daa2-4dd1-904a-9e74e10ab9e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Modules">
+      <UniqueIdentifier>{bd7edc6f-39a0-4136-bb1c-9b0560b07532}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Modules\Mesh">
+      <UniqueIdentifier>{16bc9050-535a-45d6-ba2c-bc4a92bbabb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Modules\Controller">
+      <UniqueIdentifier>{2a582c64-12d9-40c3-b054-143881dbb1c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObject">
+      <UniqueIdentifier>{5025b623-33e6-4571-99f9-da72dda3335f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Material">
+      <UniqueIdentifier>{fbc1a1e8-82d8-43c9-88c2-a013ce9ed606}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GLEW">
+      <UniqueIdentifier>{6ed62d42-6a17-4981-9b5a-f4d1a5edea86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Maths">
+      <UniqueIdentifier>{04e1c7d7-5466-4e7f-a1a1-65a78bd9618a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Modules">
+      <UniqueIdentifier>{d59443e4-4c8c-43af-8eb9-98c73737c30f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObject">
+      <UniqueIdentifier>{5ebea729-aa01-46a6-8e85-0c76571d5701}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Material">
+      <UniqueIdentifier>{c8b8d774-3fd9-4840-bd0e-ae249a72775b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rendering">
+      <UniqueIdentifier>{e8dfe393-a2a6-4393-8c70-1998215ff316}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Modules\Mesh">
+      <UniqueIdentifier>{7b678c39-4183-4d46-ac07-2ceeb60ade47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Modules\Controller">
+      <UniqueIdentifier>{cafff028-0848-4e33-9e37-c32ffd0a4c51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Default">
+      <UniqueIdentifier>{eb4b6067-b653-4826-8c11-63434eb6b6f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Terrain">
+      <UniqueIdentifier>{c307ce08-b5b7-4c0b-896f-e79ab5d7cc76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Skybox">
+      <UniqueIdentifier>{bf89b2fe-583d-4671-9011-0962d717c131}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\General">
+      <UniqueIdentifier>{ce512b8a-e52b-4580-99e7-6988a92dcb8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\General">
+      <UniqueIdentifier>{dd086196-f8d0-4c2b-85b2-9c31641b6932}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Water">
+      <UniqueIdentifier>{b7a2d716-4ec2-4958-bde7-9dfee16de426}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="my4x4matrix.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="myvector2.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="myvector3.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="myvector4.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="noisegenerator.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="heightmap.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="mouse.cpp">
+      <Filter>Source Files\General</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Source Files\General</Filter>
+    </ClCompile>
+    <ClCompile Include="mywindow.cpp">
+      <Filter>Source Files\General</Filter>
+    </ClCompile>
+    <ClCompile Include="quaternion.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="cameramodule.cpp">
+      <Filter>Source Files\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="rigidbodymodule.cpp">
+      <Filter>Source Files\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh.cpp">
+      <Filter>Source Files\Modules\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="terrain.cpp">
+      <Filter>Source Files\Modules\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="water.cpp">
+      <Filter>Source Files\Modules\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="primitives.cpp">
+      <Filter>Source Files\Modules\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="controller.cpp">
+      <Filter>Source Files\Modules\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="cameracontroller.cpp">
+      <Filter>Source Files\Modules\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="gameobject.cpp">
+      <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="staticobject.cpp">
+      <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="material.cpp">
+      <Filter>Source Files\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Source Files\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="lights.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cpp">
+      <Filter>Source Files\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="tex.cpp">
+      <Filter>Source Files\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="glew.c">
+      <Filter>Source Files\GLEW</Filter>
+    </ClCompile>
+    <ClCompile Include="terrainmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="simd.cpp">
+      <Filter>Source Files\Maths</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wglew.h">
+      <Filter>Header Files\GLEW</Filter>
+    </ClInclude>
+    <ClInclude Include="glew.h">
+      <Filter>Header Files\GLEW</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>Header Files\General</Filter>
+    </ClInclude>
+    <ClInclude Include="mouse.h">
+      <Filter>Header Files\General</Filter>
+    </ClInclude>
+    <ClInclude Include="mywindow.h">
+      <Filter>Header Files\General</Filter>
+    </ClInclude>
+    <ClInclude Include="my4x4matrix.h">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="myvector2.h">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="myvector3.h">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="myvector4.h">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="quaternion.h">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="lights.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="uniformlocations.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="cameramodule.h">
+      <Filter>Header Files\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="rigidbodymodule.h">
+      <Filter>Header Files\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh.h">
+      <Filter>Header Files\Modules\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="terrain.h">
+      <Filter>Header Files\Modules\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="water.h">
+      <Filter>Header Files\Modules\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="cameracontroller.h">
+      <Filter>Header Files\Modules\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="controller.h">
+      <Filter>Header Files\Modules\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="gameobject.h">
+      <Filter>Header Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Header Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="staticobject.h">
+      <Filter>Header Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="material.h">
+      <Filter>Header Files\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="tex.h">
+      <Filter>Header Files\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Header Files\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="noisegenerator.h">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="primitives.h">
+      <Filter>Header Files\Modules\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="singleton.h">
+      <Filter>Header Files\General</Filter>
+    </ClInclude>
+    <ClInclude Include="defines.h">
+      <Filter>Header Files\General</Filter>
+    </ClInclude>
+    <ClInclude Include="heightmap.h">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="shader.h">
+      <Filter>Header Files\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="simd.h">
+      <Filter>Header Files\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="terrainmanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="terrainupdatetask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="default.fragmentshader">
+      <Filter>Resource Files\Default</Filter>
+    </None>
+    <None Include="default.vertexshader">
+      <Filter>Resource Files\Default</Filter>
+    </None>
+    <None Include="skybox.fragmentshader">
+      <Filter>Resource Files\Skybox</Filter>
+    </None>
+    <None Include="skybox.vertexshader">
+      <Filter>Resource Files\Skybox</Filter>
+    </None>
+    <None Include="terrain.fragmentshader">
+      <Filter>Resource Files\Terrain</Filter>
+    </None>
+    <None Include="terrain.vertexshader">
+      <Filter>Resource Files\Terrain</Filter>
+    </None>
+    <None Include="terrain.tesscontrol">
+      <Filter>Resource Files\Terrain</Filter>
+    </None>
+    <None Include="terrain.tessevaluation">
+      <Filter>Resource Files\Terrain</Filter>
+    </None>
+    <None Include="water.vertexshader">
+      <Filter>Resource Files\Water</Filter>
+    </None>
+    <None Include="water.fragmentshader">
+      <Filter>Resource Files\Water</Filter>
+    </None>
+    <None Include="water.tesscontrol">
+      <Filter>Resource Files\Water</Filter>
+    </None>
+    <None Include="water.tessevaluation">
+      <Filter>Resource Files\Water</Filter>
+    </None>
+  </ItemGroup>
+</Project>

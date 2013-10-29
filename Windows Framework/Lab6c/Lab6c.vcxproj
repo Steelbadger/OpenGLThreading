@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{90A30AF5-939F-4BDE-BF4D-188B1458AF21}</ProjectGuid>
+    <RootNamespace>Lab6c</RootNamespace>
+    <ProjectName>Framework</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>$(SolutionDir)Lab6c\TBB\lib\ia32\vc10;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Lab6c\TBB\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LibraryPath>$(SolutionDir)Lab6c\TBB\lib\ia32\vc10;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Lab6c\TBB\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <ShowIncludes>false</ShowIncludes>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <AdditionalIncludeDirectories>M:\Graphics Programming\OpenGLFramework\Windows Framework\Lab6c\TBB\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>tbb.lib;Opengl32.lib;glu32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Console</SubSystem>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <AdditionalLibraryDirectories>C:\Users\Ross\Documents\GitHub\OpenGLFramework\Windows Framework\Lab6c\TBB\lib\ia32\vc10</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <AdditionalIncludeDirectories>M:\Graphics Programming\OpenGLFramework\Windows Framework\Lab6c\TBB\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
+      <AdditionalDependencies>tbb.lib;Opengl32.lib;glu32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Ross\Documents\GitHub\OpenGLFramework\Windows Framework\Lab6c\TBB\lib\ia32\vc10</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="application.cpp" />
+    <ClCompile Include="cameracontroller.cpp" />
+    <ClCompile Include="cameramodule.cpp" />
+    <ClCompile Include="controller.cpp" />
+    <ClCompile Include="gameobject.cpp" />
+    <ClCompile Include="glew.c" />
+    <ClCompile Include="heightmap.cpp" />
+    <ClCompile Include="input.cpp" />
+    <ClCompile Include="lights.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="material.cpp" />
+    <ClCompile Include="mesh.cpp" />
+    <ClCompile Include="noisegenerator.cpp" />
+    <ClCompile Include="primitives.cpp" />
+    <ClCompile Include="quaternion.cpp" />
+    <ClCompile Include="shader.cpp" />
+    <ClCompile Include="simd.cpp" />
+    <ClCompile Include="staticobject.cpp" />
+    <ClCompile Include="terrain.cpp" />
+    <ClCompile Include="mouse.cpp" />
+    <ClCompile Include="my4x4matrix.cpp" />
+    <ClCompile Include="myvector2.cpp" />
+    <ClCompile Include="myvector3.cpp" />
+    <ClCompile Include="myvector4.cpp" />
+    <ClCompile Include="mywindow.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="renderer.cpp" />
+    <ClCompile Include="rigidbodymodule.cpp" />
+    <ClCompile Include="terrainmanager.cpp" />
+    <ClCompile Include="tex.cpp" />
+    <ClCompile Include="texture.cpp" />
+    <ClCompile Include="water.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="application.h" />
+    <ClInclude Include="cameracontroller.h" />
+    <ClInclude Include="cameramodule.h" />
+    <ClInclude Include="controller.h" />
+    <ClInclude Include="defines.h" />
+    <ClInclude Include="gameobject.h" />
+    <ClInclude Include="glew.h" />
+    <ClInclude Include="heightmap.h" />
+    <ClInclude Include="input.h" />
+    <ClInclude Include="lights.h" />
+    <ClInclude Include="material.h" />
+    <ClInclude Include="mesh.h" />
+    <ClInclude Include="noisegenerator.h" />
+    <ClInclude Include="primitives.h" />
+    <ClInclude Include="quaternion.h" />
+    <ClInclude Include="shader.h" />
+    <ClInclude Include="simd.h" />
+    <ClInclude Include="staticobject.h" />
+    <ClInclude Include="terrain.h" />
+    <ClInclude Include="mouse.h" />
+    <ClInclude Include="my4x4matrix.h" />
+    <ClInclude Include="myvector2.h" />
+    <ClInclude Include="myvector3.h" />
+    <ClInclude Include="myvector4.h" />
+    <ClInclude Include="mywindow.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="renderer.h" />
+    <ClInclude Include="rigidbodymodule.h" />
+    <ClInclude Include="singleton.h" />
+    <ClInclude Include="terrainmanager.h" />
+    <ClInclude Include="terrainupdatetask.h" />
+    <ClInclude Include="tex.h" />
+    <ClInclude Include="texture.h" />
+    <ClInclude Include="uniformlocations.h" />
+    <ClInclude Include="water.h" />
+    <ClInclude Include="wglew.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="default.fragmentshader" />
+    <None Include="default.vertexshader" />
+    <None Include="skybox.fragmentshader" />
+    <None Include="skybox.vertexshader" />
+    <None Include="terrain.fragmentshader" />
+    <None Include="terrain.tesscontrol" />
+    <None Include="terrain.tessevaluation" />
+    <None Include="terrain.vertexshader" />
+    <None Include="water.fragmentshader" />
+    <None Include="water.tesscontrol" />
+    <None Include="water.tessevaluation" />
+    <None Include="water.vertexshader" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,27 @@
+#version 400 core
+
+// Input vertex data, different for all executions of this shader.
+layout(location = 0) in vec3 vertexPosition_modelspace;
+layout(location = 1) in vec3 vertexNormal;
+layout(location = 2) in vec2 vertexUV;
+
+out vec2 vUV;
+out vec3 vworldPosition;
+out vec3 vnormal;
+out vec3 vvertNorm;
+out vec3 vglobalPos;
+
+uniform mat4 viewMatrix;
+uniform mat4 modelMatrix;
+
+void main(){
+	gl_Position = vec4(vertexPosition_modelspace, 1.0);
+	vworldPosition = vertexPosition_modelspace;
+	vworldPosition.y = 0.0;
+	vworldPosition = vec3(viewMatrix * modelMatrix * vec4(vworldPosition, 1.0));
+	vnormal = vertexNormal;
+	vUV = vertexUV;
+	vvertNorm = vertexNormal;
+	vglobalPos = vec3(modelMatrix * vec4(vertexPosition_modelspace, 1.0));
+}
+
