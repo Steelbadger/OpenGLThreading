@@ -1,0 +1,104 @@
+#version 400 core
+
+
+in vec2 UV;
+in vec3 worldPosition;
+in vec3 normal;
+in vec3 vertNorm;
+in vec3 globalPos;
+
+// Ouput data
+out vec4 color;
+
+uniform sampler2D texture1;
+uniform sampler2D texture2;
+
+struct Light {
+	vec4 position;
+	vec4 colour;
+	int type;
+};
+uniform Light lights[8];
+uniform int numLights;
+
+void main()
+{
+	//  Hardcode Shininess (not very shiny)
+	float shininess = 1;
+
+	vec3 texcolour;
+
+	vec3 baseline = vec3(vertNorm.x, 0.0, vertNorm.z);
+	baseline = normalize(baseline);
+	vec3 vn = normalize(vertNorm);
+
+	float ang = dot(vn, baseline);
+	float angle = abs(ang);
+
+	float grassThresh = 0.45;
+	float rockThresh = 0.55;
+	angle = max(grassThresh, angle);
+	angle = min(rockThresh, angle);
+
+
+	float alt = globalPos.y;
+	float diff = 1.0;
+	float start = -15.0;
+	alt = alt + (abs(ang)-0.5)*7;
+	alt = min(start+diff, alt);
+	alt = max(start, alt);
+	alt = alt-start;
+
+	float portion = (angle-grassThresh)/(rockThresh-grassThresh);
+	texcolour = portion*texture(texture2, UV/4).rgb + (1-portion)*texture(texture1, UV).rgb;
+	texcolour = (alt/diff) * texcolour + (1-(alt/diff)) * (texture(texture2, UV/4).rgb * vec3(0.543, 0.36, 0.36));
+
+	vec3 diffuse = vec3(0.0, 0.0, 0.0);
+	vec3 ambient = vec3(0.0, 0.0, 0.0);
+	vec3 specular = vec3(0.0, 0.0, 0.0);
+	vec3 lightcolour = vec3(0.0, 0.0, 0.0);
+
+	for (int i = 0; i <= numLights; i++) {
+
+		lightcolour = vec3(lights[i].colour);
+
+
+		float fac = ((lights[i].colour.a)/0.1);
+		fac = max(fac, 0.1);
+		fac = min(fac, 0.2);
+
+		ambient = ambient + (texcolour * lightcolour * fac);
+		vec3 fragToLight;
+
+		float dist;
+
+		if (lights[i].type == 1) {
+			fragToLight = normalize(vec3(lights[i].position));
+			dist = 0;
+		} else {
+			fragToLight = normalize(vec3(lights[i].position)-worldPosition);
+			dist = distance(vec3(lights[i].position), worldPosition);
+		}
+
+		vec3 surfaceNormal = normalize(normal);
+		vec3 fragToView = normalize(-worldPosition);
+
+		float diffuseContribution = max(0.0, dot(surfaceNormal, fragToLight));
+
+		diffuseContribution = max(0.0, dot(surfaceNormal, fragToLight));
+
+		float attenuation = (1/(1 + 0.01*dist + 0.0001 * dist * dist));
+
+		diffuse = diffuse + (texcolour * lightcolour * diffuseContribution * attenuation);
+
+		vec3 lightReflection = reflect(fragToLight, surfaceNormal);
+
+		float specularContribution = max(0.0, dot(-lightReflection, fragToView));
+		specularContribution = pow(specularContribution, shininess);
+
+		specular = specular + (texcolour * lightcolour * specularContribution * attenuation);
+	}
+
+	color = vec4(ambient + diffuse + specular, 1.0);
+
+}

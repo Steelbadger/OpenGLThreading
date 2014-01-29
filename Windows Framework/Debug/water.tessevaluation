@@ -1,0 +1,101 @@
+#version 400 core
+
+layout(triangles, equal_spacing, ccw) in;
+in vec3 tcworldPosition[];
+in vec3 tcnormal[];
+in vec3 tcvertNorm[];
+in vec3 tcglobalPos[];
+in float tcdepth[];
+
+out vec3 worldPosition;
+out vec3 normal;
+out vec3 vertNorm;
+out vec3 globalPos;
+out float depth;
+
+uniform mat4 projectionMatrix;
+uniform mat4 modelViewMatrix;
+uniform mat4 normalMatrix;
+uniform sampler2D texture2;
+uniform float mapWidth;
+uniform float xmul;
+uniform float ymul;
+
+uniform float time;
+
+void main()
+{
+    vec4 p0 = gl_TessCoord.x * gl_in[0].gl_Position;
+    vec4 p1 = gl_TessCoord.y * gl_in[1].gl_Position;
+    vec4 p2 = gl_TessCoord.z * gl_in[2].gl_Position;
+
+	vec4 pos = (p0 + p1 + p2);
+
+	vec3 gp0 = gl_TessCoord.x * tcglobalPos[0];
+	vec3 gp1 = gl_TessCoord.y * tcglobalPos[1];
+	vec3 gp2 = gl_TessCoord.z * tcglobalPos[2];
+
+	vec3 gp = gp0 + gp1 + gp2;
+
+	float d1 = gl_TessCoord.x * tcdepth[0];
+	float d2 = gl_TessCoord.y * tcdepth[1];
+	float d3 = gl_TessCoord.z * tcdepth[2];
+
+	depth = d1 + d2 + d3;
+
+	float u = (mapWidth*(-xmul) + gp.x*xmul + gp.x*(1+xmul))+1.0;
+	float v = (mapWidth*(-ymul) + gp.z*ymul + gp.z*(1+ymul))+1.0;
+
+//	vec3 tShoreDir = texture(texture2, gp.xz/mapWidth).xyz;
+	vec3 tShoreDir = texture(texture2, vec2(u,v)/(mapWidth+2)).xyz;
+	tShoreDir = tShoreDir/tShoreDir.y;
+	tShoreDir.y /= 2;
+
+	vec2 shoreDir = tShoreDir.xz;
+	shoreDir = normalize(shoreDir);
+
+	float depthCoeff = 2;
+	float xCoeff = 0.2;
+	float zCoeff = 0.33;
+
+	float comp1Coeff = 0.25;
+	float comp2Coeff = 0.3;
+	float comp3Coeff = 0.28;
+
+	float comp1SinCoeff = 1;
+	float comp2SinCoeff = 0.25;
+	float comp3SinCoeff = 0.5;
+
+	float xcalc = gp.x + time;
+
+	float comp1 = depth * comp1Coeff * sin((gp.x + time) * xCoeff * comp1SinCoeff);
+	float comp2 = depth * comp2Coeff * sin(((gp.x + time*5.2) * xCoeff + 3 * gp.z * zCoeff)*comp2SinCoeff);
+	float comp3 = depth * comp3Coeff * sin(((gp.x + time*8.3) * xCoeff - gp.z * zCoeff)*comp3SinCoeff);
+
+	float shoreWave = tShoreDir.y * (1/(1+depth*20)) * 0.1 * sin(5*(shoreDir.x*(gp.x+time*0.2) + shoreDir.y*(gp.z+time*0.2)));
+
+	pos.y  = ((comp1 + comp2 + comp3 + shoreWave)-16.0);
+
+    gl_Position = projectionMatrix * modelViewMatrix * pos;
+
+	worldPosition = vec3(modelViewMatrix * pos);
+
+    vec3 n0 = gl_TessCoord.x * tcnormal[0];
+    vec3 n1 = gl_TessCoord.y * tcnormal[1];
+    vec3 n2 = gl_TessCoord.z * tcnormal[2];
+
+	float normComp1 = depth * comp1Coeff * xCoeff * comp1SinCoeff * cos((gp.x + time) * xCoeff * comp1SinCoeff);
+	float normComp2 = depth * comp2Coeff * comp2SinCoeff * cos(((gp.x + time*5.2) * xCoeff + 3 * gp.z * zCoeff)*comp2SinCoeff);
+	float normComp3 = depth * comp3Coeff * comp3SinCoeff * cos(((gp.x + time*8.3) * xCoeff + gp.z * zCoeff)*comp3SinCoeff);
+
+	float normShoreWave = tShoreDir.y * (1/(1+depth*20)) * 0.1 * 5 * cos(5*(shoreDir.x*(gp.x+time*0.2) + shoreDir.y*(gp.z+time*0.2)));
+
+	vec3 norm = vec3(normComp1 + xCoeff * normComp2 + xCoeff * normComp3 + shoreDir.x * normShoreWave
+					, 1,
+					2 * zCoeff * normComp2 + zCoeff * normComp3 + shoreDir.y * normShoreWave);
+	norm = normalize(norm);
+	normal = vec3(normalMatrix * vec4(norm, 1.0));
+
+	vertNorm = norm;
+	globalPos = pos.xyz;
+}

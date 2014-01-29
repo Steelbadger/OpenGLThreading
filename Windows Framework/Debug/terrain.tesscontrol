@@ -1,0 +1,69 @@
+#version 400 core
+
+layout(vertices = 3) out;
+
+in vec2 vUV[];
+in vec3 vworldPosition[];
+in vec3 vnormal[];
+in vec3 vvertNorm[];
+in vec3 vglobalPos[];
+
+out vec2 tcUV[];
+out vec3 tcworldPosition[];
+out vec3 tcnormal[];
+out vec3 tcvertNorm[];
+out vec3 tcglobalPos[];
+
+#define ID gl_InvocationID
+
+void main()
+{
+	gl_out[ID].gl_Position = gl_in[ID].gl_Position;
+	tcUV[ID] = vUV[ID];
+	tcworldPosition[ID] = vworldPosition[ID];
+	tcnormal[ID] = vnormal[ID];
+	tcvertNorm[ID] = vvertNorm[ID];
+	tcglobalPos[ID] = vglobalPos[ID];
+	
+	//  Once set tessellation levels once per patch
+	if (ID == 0) {
+
+	//  If the patch is wholly offscreen then don't try to tessellate
+		if (gl_in[0].gl_Position.z < -0.5 && 
+			gl_in[1].gl_Position.z < -0.5 &&
+			gl_in[2].gl_Position.z < -0.5)
+		{
+			gl_TessLevelInner[0] = 0.0;
+			gl_TessLevelOuter[0] = 0.0;
+			gl_TessLevelOuter[1] = 0.0;
+			gl_TessLevelOuter[2] = 0.0;
+		} else {
+
+			//  find the distance of the mid-point of each edge from the camera
+			vec3 edge1 = (vworldPosition[0] + vworldPosition[1])/2;
+			vec3 edge2 = (vworldPosition[1] + vworldPosition[2])/2;
+			vec3 edge3 = (vworldPosition[2] + vworldPosition[0])/2;
+
+			float dist1 = distance(vec3(0,0,0),edge1);
+			float dist2 = distance(vec3(0,0,0),edge2);
+			float dist3 = distance(vec3(0,0,0),edge3);
+
+			//  Set the tessellation level for this edge based on this distance
+			float tess0 = 4000/(1+dist3*0.07 + dist3 * dist3 *0.007);
+			tess0 = int(clamp(tess0, 1, 64));
+			float tess1 = 4000/(1+dist2*0.07 + dist2 * dist2 *0.007);
+			tess1 = int(clamp(tess1, 1, 64));
+			float tess2 = 4000/(1+dist1*0.07 + dist1 * dist1 *0.007);
+			tess2 = int(clamp(tess2, 1, 64));
+			float tessm = (tess0 + tess1 + tess2)/3;
+
+			gl_TessLevelInner[0] = tessm;
+			gl_TessLevelOuter[1] = tess0;
+			gl_TessLevelOuter[0] = tess1;
+			gl_TessLevelOuter[2] = tess2;
+
+			//  This method ensures that there will be no gaps when tesselation levels change across patches, as each edge has a
+			//  a specific level, regardless of the patch it is in.
+		}
+	}
+}

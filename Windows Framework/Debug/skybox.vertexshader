@@ -1,0 +1,37 @@
+#version 330 core
+
+// Input vertex data, different for all executions of this shader.
+layout(location = 0) in vec3 vertexPosition_modelspace;
+layout(location = 1) in vec3 vertexNormal;
+layout(location = 2) in vec2 vertexUV;
+
+out vec2 UV;
+out vec3 worldPosition;
+out vec3 normal;
+out vec3 vertNorm;
+
+uniform mat4 projectionMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 modelMatrix;
+uniform mat4 modelViewMatrix;
+uniform mat4 normalMatrix;
+
+void main(){
+
+	//  Find the position in screen space (model transformation, then view transformation, then project)
+    gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(vertexPosition_modelspace, 1.0);
+
+
+	//  Find the position in eye-space (model transformation, then view transformation, camera now at 0,0,0
+	worldPosition = vec3(viewMatrix * modelMatrix * vec4(vertexPosition_modelspace, 1.0));
+
+	//  Find the normal in eye-space
+	normal = vec3(normalMatrix * vec4(vertexNormal, 1.0));
+	
+
+	//  Uvs to be passed to fragment shader
+	UV = vertexUV;
+
+	//  Find the normal in world-space
+	vertNorm = vertexNormal;
+}

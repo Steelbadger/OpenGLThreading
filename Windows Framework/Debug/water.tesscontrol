@@ -1,0 +1,136 @@
+#version 400 core
+
+layout(vertices = 3) out;
+
+in vec3 vworldPosition[];
+in vec3 vnormal[];
+in vec3 vvertNorm[];
+in vec3 vglobalPos[];
+
+out vec3 tcworldPosition[];
+out vec3 tcnormal[];
+out vec3 tcvertNorm[];
+out vec3 tcglobalPos[];
+out float tcdepth[];
+
+uniform sampler2D texture2;
+uniform float magnitude;
+uniform float mapWidth;
+uniform float xmul;
+uniform float ymul;
+
+#define ID gl_InvocationID
+
+void main()
+{
+	gl_out[ID].gl_Position = gl_in[ID].gl_Position;
+	tcworldPosition[ID] = vworldPosition[ID];
+	tcnormal[ID] = vnormal[ID];
+	tcvertNorm[ID] = vvertNorm[ID];
+	tcglobalPos[ID] = vglobalPos[ID];
+
+	float depth[3];
+
+	float u1 = vglobalPos[0].x - xmul;
+	float v1 = vglobalPos[0].z - ymul;
+	float u2 = vglobalPos[1].x - xmul;
+	float v2 = vglobalPos[1].z - ymul;
+	float u3 = vglobalPos[2].x - xmul;
+	float v3 = vglobalPos[2].z - ymul;
+
+	u1 = (u1+1)/(mapWidth+2);
+	v1 = (v1+1)/(mapWidth+2);
+	u2 = (u2+1)/(mapWidth+2);
+	v2 = (v2+1)/(mapWidth+2);
+	u3 = (u3+1)/(mapWidth+2);
+	v3 = (v3+1)/(mapWidth+2);
+
+	depth[0] = (texture(texture2, vec2(u1, v1)).a-0.5)*magnitude*2;
+	depth[1] = (texture(texture2, vec2(u2, v2)).a-0.5)*magnitude*2;
+	depth[2] = (texture(texture2, vec2(u3, v3)).a-0.5)*magnitude*2;
+
+//	depth[0] = (texture(texture2, vglobalPos[0].xz/mapWidth).a-0.5)*magnitude*2;
+//	depth[1] = (texture(texture2, vglobalPos[1].xz/mapWidth).a-0.5)*magnitude*2;
+//	depth[2] = (texture(texture2, vglobalPos[2].xz/mapWidth).a-0.5)*magnitude*2;
+
+	depth[0] = depth[0] + 16;
+	depth[1] = depth[1] + 16;
+	depth[2] = depth[2] + 16;
+
+	depth[0] = depth[0]/(magnitude/16)-1;
+	depth[1] = depth[1]/(magnitude/16)-1;
+	depth[2] = depth[2]/(magnitude/16)-1;
+
+	float corrDepth[3];
+	corrDepth[0] = depth[0] + 1;
+	corrDepth[1] = depth[1] + 1;
+	corrDepth[2] = depth[2] + 1;
+	
+	depth[0] = clamp(depth[0], -1.0, 0.0);
+	depth[1] = clamp(depth[1], -1.0, 0.0);
+	depth[2] = clamp(depth[2], -1.0, 0.0);
+
+	corrDepth[0] = clamp(corrDepth[0], -1.0, 0.0);
+	corrDepth[1] = clamp(corrDepth[1], -1.0, 0.0);
+	corrDepth[2] = clamp(corrDepth[2], -1.0, 0.0);
+
+	depth[0] = abs(depth[0]);
+	depth[1] = abs(depth[1]);
+	depth[2] = abs(depth[2]);
+
+	corrDepth[0] = abs(corrDepth[0]);
+	corrDepth[1] = abs(corrDepth[1]);
+	corrDepth[2] = abs(corrDepth[2]);
+
+	tcdepth[ID] = corrDepth[ID];
+	
+	//  Set tessellation levels once per patch
+	if (ID == 0) {
+	//  If the patch is wholly offscreen then don't try to tessellate
+		if (gl_in[0].gl_Position.z < -0.5 && 
+			gl_in[1].gl_Position.z < -0.5 &&
+			gl_in[2].gl_Position.z < -0.5)
+		{
+			gl_TessLevelInner[0] = 0.0;
+			gl_TessLevelOuter[0] = 0.0;
+			gl_TessLevelOuter[1] = 0.0;
+			gl_TessLevelOuter[2] = 0.0;
+		} else {
+
+			float depthMult[3];
+			depthMult[0] = ceil(depth[0]);
+			depthMult[1] = ceil(depth[1]);
+			depthMult[2] = ceil(depth[2]);
+
+			float depthMultFace = max(depthMult[0], depthMult[1]);
+			depthMultFace = max(depthMultFace, depthMult[2]);
+
+
+			//  find the distance of the mid-point of each edge from the camera
+			vec3 edge1 = (vworldPosition[0] + vworldPosition[1])/2;
+			vec3 edge2 = (vworldPosition[1] + vworldPosition[2])/2;
+			vec3 edge3 = (vworldPosition[2] + vworldPosition[0])/2;
+
+			float dist1 = distance(vec3(0,0,0),edge1);
+			float dist2 = distance(vec3(0,0,0),edge2);
+			float dist3 = distance(vec3(0,0,0),edge3);
+
+			//  Set the tessellation level for this edge based on this distance
+			float tess0 = 1000/(1+dist3*0.05 + dist3 * dist3 *0.005);
+			tess0 = int(clamp(tess0, 1, 32));
+			float tess1 = 1000/(1+dist2*0.05 + dist2 * dist2 *0.005);
+			tess1 = int(clamp(tess1, 1, 32));
+			float tess2 = 1000/(1+dist1*0.05 + dist1 * dist1 *0.005);
+			tess2 = int(clamp(tess2, 1, 32));
+			float tessm = (tess0 + tess1 + tess2)/3;
+
+			gl_TessLevelInner[0] = tessm*depthMultFace;
+			gl_TessLevelOuter[1] = tess0*depthMultFace;
+			gl_TessLevelOuter[0] = tess1*depthMultFace;
+			gl_TessLevelOuter[2] = tess2*depthMultFace;
+
+			//  This method ensures that there will be no gaps when tesselation levels change across patches, as each edge has a
+			//  a specific level, regardless of the patch it is in.
+		}
+	}
+}
